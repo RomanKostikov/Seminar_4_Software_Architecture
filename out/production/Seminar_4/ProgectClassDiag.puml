@@ -1,0 +1,46 @@
+@startuml
+'https://plantuml.com/class-diagram
+
++class Customer {
+    - int id;
+    - List<Ticket> tickets;
+    - CashProvider cashProvider;
+
+    + Customer(CashProvider cashProvider)
+    + boolean buyTicket(Ticket ticket)
+    + List<Ticket> searchTicket(Date date, int route) throws RuntimeException
+}
+
++class TicketProvider {
+    - ITicketRepo ticketRepo;
+
+    + TicketProvider()
+    + List<Ticket> getTickets(int routeNumber) throws RuntimeException
+    + boolean updateTicketStatus(Ticket ticket)
+}
+
++class TicketRepository implements ITicketRepo {
+    - static TicketRepository ticketRepository;
+    - List<Ticket> tickets;
+
+    - TicketRepository()
+    + static TicketRepository getTicketRepository()
+    + boolean create(Ticket ticket)
+    + List<Ticket> readAll(int routeNumber) throws RuntimeException
+    + boolean update(Ticket ticket)
+    + boolean delete(Ticket ticket)
+    - void generateTickets(int roureNumber, int countPlaces, int price, Date date)
+}
+
+
+
+
+
++interface ITicketRepo {
+    boolean create(Ticket ticket);
+    List<Ticket> readAll(int routeNumber);
+    boolean update(Ticket ticket);
+    boolean delete(Ticket ticket);
+}
+
+@enduml
